@@ -113,6 +113,39 @@ class Tree
     result unless block_given?
   end
 
+  def inorder(node = @root, result = [], &block)
+    if node.nil?
+      return
+    end
+
+    inorder(node.left, result, &block)
+    block_given? ? yield(node) : result << node.data
+    inorder(node.right, result, &block)
+    result unless block_given?
+  end
+
+  def preorder(node = @root, result = [], &block)
+    if node.nil?
+      return
+    end
+
+    block_given? ? yield(node) : result << node.data
+    preorder(node.left, result, &block)
+    preorder(node.right, result, &block)
+    result unless block_given?
+  end
+
+  def postorder(node = @root, result = [], &block)
+    if node.nil?
+      return
+    end
+
+    postorder(node.left, result, &block)
+    postorder(node.right, result, &block)
+    block_given? ? yield(node) : result << node.data
+    result unless block_given?
+  end
+
   # print method provided by student via Discord
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
