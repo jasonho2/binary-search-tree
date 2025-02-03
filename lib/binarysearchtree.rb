@@ -78,11 +78,11 @@ class Tree
 
   def find(value, node = @root)
     if node.nil?
-      return nil
+      return false
     end
 
     if value == node.data
-      return node
+      return true
     elsif value < node.data
       find(value, node.left)
     else
