@@ -37,6 +37,45 @@ class Tree
     node
   end
 
+  # per the article provided by TOP deletion
+  def get_successor(curr)
+    curr = curr.right
+    while curr != nil && curr.left != nil
+      curr = curr.left
+    end
+    curr
+  end
+  
+  def delete(value, node = @root)
+    # base case
+    if node.nil?
+      return node
+    end
+
+    # if key is in a subtree
+    if value < node.data
+      node.left = delete(value, node.left)
+    elsif value > node.data
+      node.right = delete(value, node.right)
+    else # if node = value
+
+      if node.left.nil? # when root has 0 children or only right child
+        return node.right
+      end
+      if node.right.nil? # when root has only left child
+        return node.left
+      end
+
+      # per the article provided by TOP. when both children are present
+      succ = get_successor(node)
+      node.data = succ.data
+      node.right = delete(succ.data, node.right)
+
+    end
+
+    node
+  end
+
   # print method provided by student via Discord
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
