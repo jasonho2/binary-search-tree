@@ -82,7 +82,7 @@ class Tree
     end
 
     if value == node.data
-      return true
+      return node
     elsif value < node.data
       find(value, node.left)
     else
@@ -144,6 +144,14 @@ class Tree
     postorder(node.right, result, &block)
     block_given? ? yield(node) : result << node.data
     result unless block_given?
+  end
+
+  def height(node = @root)
+    if node.nil?
+      return -1
+    end
+
+    1 + [height(node.left), height(node.right)].max
   end
 
   # print method provided by student via Discord
