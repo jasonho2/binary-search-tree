@@ -110,7 +110,7 @@ class Tree
       end
     end
 
-    result
+    result unless block_given?
   end
 
   # print method provided by student via Discord
