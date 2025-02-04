@@ -179,6 +179,11 @@ class Tree
     (left_height - right_height).abs <= 1 && balanced?(node.left) && balanced?(node.right)
   end
 
+  def rebalance
+    new_arr = inorder
+    @root = build_tree(new_arr)
+  end
+
   # print method provided by student via Discord
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
